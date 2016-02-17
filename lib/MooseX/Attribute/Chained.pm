@@ -1,25 +1,24 @@
 #
 # This file is part of MooseX-Attribute-Chained
 #
-# This software is copyright (c) 2012 by Moritz Onken.
+# This software is copyright (c) 2016 by Tom Hukins.
 #
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
 package MooseX::Attribute::Chained;
-{
-  $MooseX::Attribute::Chained::VERSION = '1.0.1';
-}
-
+$MooseX::Attribute::Chained::VERSION = '1.0.2';
 # ABSTRACT: Attribute that returns the instance to allow for chaining
 use Moose::Util;
 Moose::Util::meta_attribute_alias(
     Chained => 'MooseX::Traits::Attribute::Chained' );
 
+# Loading this class now prevents it from loading later and emitting a
+# warning.
+use Moose::Meta::Attribute::Custom::Trait::Chained ();
+
 package MooseX::Traits::Attribute::Chained;
-{
-  $MooseX::Traits::Attribute::Chained::VERSION = '1.0.1';
-}
+$MooseX::Traits::Attribute::Chained::VERSION = '1.0.2';
 use Moose::Role;
 
 override accessor_metaclass => sub {
@@ -27,9 +26,7 @@ override accessor_metaclass => sub {
 };
 
 package MooseX::Attribute::Chained::Method::Accessor;
-{
-  $MooseX::Attribute::Chained::Method::Accessor::VERSION = '1.0.1';
-}
+$MooseX::Attribute::Chained::Method::Accessor::VERSION = '1.0.2';
 use Carp qw(confess);
 use Try::Tiny;
 use base 'Moose::Meta::Method::Accessor';
@@ -94,9 +91,11 @@ sub _inline_post_body {
 
 1;
 
-
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -104,7 +103,7 @@ MooseX::Attribute::Chained - Attribute that returns the instance to allow for ch
 
 =head1 VERSION
 
-version 1.0.1
+version 1.0.2
 
 =head1 SYNOPSIS
 
@@ -150,6 +149,10 @@ on accessors by returning $self on write/set operations.
 
 =item *
 
+Tom Hukins <tom@eborcom.com>
+
+=item *
+
 Moritz Onken <onken@netcubed.de>
 
 =item *
@@ -160,10 +163,9 @@ David McLaughlin <david@dmclaughlin.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Moritz Onken.
+This software is copyright (c) 2016 by Tom Hukins.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

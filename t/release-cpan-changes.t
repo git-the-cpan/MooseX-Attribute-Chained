@@ -2,7 +2,7 @@
 #
 # This file is part of MooseX-Attribute-Chained
 #
-# This software is copyright (c) 2012 by Moritz Onken.
+# This software is copyright (c) 2016 by Tom Hukins.
 #
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
@@ -15,9 +15,13 @@ BEGIN {
   }
 }
 
-use Test::More;
 
-eval "use Test::Pod 1.41";
-plan skip_all => "Test::Pod 1.41 required for testing POD" if $@;
+use strict;
+use warnings;
 
-all_pod_files_ok();
+use Test::More 0.96 tests => 2;
+use_ok('Test::CPAN::Changes');
+subtest 'changes_ok' => sub {
+    changes_file_ok('Changes');
+};
+done_testing();
